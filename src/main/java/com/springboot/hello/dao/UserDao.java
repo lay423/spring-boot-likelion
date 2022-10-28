@@ -34,6 +34,10 @@ public class UserDao {
         return this.jdbcTemplate.update("delete from users");
     }
 
+    public int deleteById(String id) {
+        return this.jdbcTemplate.update("delete from users where id=?", id);
+    }
+
     public User findById(String id) {
         Map<String, String> env = System.getenv();
         Connection c;
