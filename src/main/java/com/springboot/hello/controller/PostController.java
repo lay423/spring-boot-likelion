@@ -29,10 +29,5 @@ public class PostController {
         return memberDto.toString();
     }
 
-    @PostMapping("/member3")
-    public ResponseEntity<MemberDto> putMember(@RequestBody MemberDto memberDto) {
-        return ResponseEntity
-                .status(HttpStatus.ACCEPTED)
-                .body(memberDto);
-    }
+
 }
