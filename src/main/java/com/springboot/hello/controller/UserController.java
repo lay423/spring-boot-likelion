@@ -17,6 +17,15 @@ public class UserController {
         this.userDao = userDao;
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<User> select(@PathVariable String id) {
+        try {
+            User user = this.userDao.findById(id);
+            return ResponseEntity.ok().body(user);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     @PostMapping("/user/Kyeong")
     public User addAndGet() throws SQLException {
         userDao.add(new User("1", "Kyeongrok", "1234"));
@@ -24,9 +33,10 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public User postMember(@RequestBody User user) {
-        this.userDao.add(user);
-        return userDao.findById(user.getId());
+    public ResponseEntity<Integer> postMember(@RequestBody User user) {
+        return ResponseEntity
+                .ok()
+                .body(userDao.add(user));
     }
 
     @DeleteMapping("/user/{id}")

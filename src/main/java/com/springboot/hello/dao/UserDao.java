@@ -2,6 +2,7 @@ package com.springboot.hello.dao;
 
 import com.springboot.hello.domain.User;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -22,10 +23,17 @@ public class UserDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    RowMapper<User> rowMapper = (rs, rowNum)-> {
+        return new User(rs.getString("id"), rs.getString("name"), rs.getString("password"));
+
+    };
+    public User findById(String id) throws SQLException {
+        return this.jdbcTemplate.queryForObject("select * from users where id=?", rowMapper, id);
+    }
 
 
-    public void add(User user){
-        this.jdbcTemplate.update("insert into users(id, name, password) values(?,?,?)",
+    public int add(User user){
+        return this.jdbcTemplate.update("insert into users(id, name, password) values(?,?,?)",
                 user.getId(), user.getName(), user.getPassword());
 
     }
@@ -36,37 +44,5 @@ public class UserDao {
 
     public int deleteById(String id) {
         return this.jdbcTemplate.update("delete from users where id=?", id);
-    }
-
-    public User findById(String id) {
-        Map<String, String> env = System.getenv();
-        Connection c;
-        try {
-            // DB접속 (ex sql workbeanch실행)
-            c = dataSource.getConnection();
-
-            // Query문 작성
-            PreparedStatement pstmt = c.prepareStatement("SELECT * FROM users WHERE id = ?");
-            pstmt.setString(1, id);
-
-            // Query문 실행
-            ResultSet rs = pstmt.executeQuery();
-            User user = null;
-            if (rs.next()) {
-                user = new User(rs.getString("id"), rs.getString("name"),
-                        rs.getString("password"));
-            }
-
-            rs.close();
-            pstmt.close();
-            c.close();
-
-            if (user == null) throw new RuntimeException();
-
-            return user;
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 }
