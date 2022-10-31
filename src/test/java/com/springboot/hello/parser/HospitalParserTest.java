@@ -29,6 +29,8 @@ class HospitalParserTest {
         List<Hospital> hospitalList = hospitalReadLineContext.readByLine(filename);
         assertTrue(hospitalList.size() > 1000);
         assertTrue(hospitalList.size() > 10000);
+        assertTrue(hospitalList.size() > 100000);
+        System.out.println("파싱된 데이터 개수 "+hospitalList.size());
     }
 
     @Test
@@ -66,7 +68,7 @@ class HospitalParserTest {
         List<String> strings = new ArrayList<>();
         List<Hospital> hospitals = hospitalLineReader.readByLine(filename);
         strings.add("INSERT INTO `likelion-db`.`hospital_db` (`id`,`open_service_name`,`open_local_gorvernment_code`,`management_number`,`license_date`,`business_status`,`business_status_code`,`phone`,`full_address`,`road_name_address`,`hospital_name`,`business_type_name`,`healthcare_provider_count`,`patient_room_count`,`total_number_of_beds`,`total_area_size`)");
-
+        strings.add("\nVALUES");
         for (Hospital hospital : hospitals) {
             strings.add("("+writer.fromTOString(hospital));
         }
