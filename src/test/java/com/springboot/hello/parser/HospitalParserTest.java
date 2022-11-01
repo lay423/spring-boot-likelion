@@ -2,6 +2,7 @@ package com.springboot.hello.parser;
 
 import com.springboot.hello.dao.HospitalDao;
 import com.springboot.hello.domain.dto.Hospital;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +29,14 @@ class HospitalParserTest {
     @Test
     @DisplayName("Hospital insert가 잘 되는지")
     void insertHospital() {
+        hospitalDao.deleteAll();
+        assertEquals(0, hospitalDao.getCount());
+
         HospitalParser hp = new HospitalParser();
         Hospital hospital = hp.parse(line1);
         hospitalDao.add(hospital);
+        assertEquals(1, hospitalDao.getCount());
+
     }
 
     @Test
