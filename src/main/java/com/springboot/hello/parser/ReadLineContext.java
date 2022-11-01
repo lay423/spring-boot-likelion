@@ -16,7 +16,6 @@ public class ReadLineContext<T> {
         BufferedReader reader
                 = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "euc-kr"));
         String str;
-        reader.readLine();
         while ((str = reader.readLine()) != null) {
             try {
                 result.add(parser.parse(str));

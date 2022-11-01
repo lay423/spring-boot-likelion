@@ -23,18 +23,21 @@ public class FileWriterContext {
 
     public String fromTOString(Hospital hospital) {
         return hospital.getId()
-                + ","+ hospital.getOpenServiceName()
-                + ","+ hospital.getLicenseDate()
-                + ","+ hospital.getBusinessStatus()
+                + ",'"+ hospital.getOpenServiceName()
+                + "',"+ hospital.getOpenLocalGovernmentCode()
+                + ",'"+ hospital.getManagementNumber()
+                + "','"+ hospital.getLicenseDate()
+                + "',"+ hospital.getBusinessStatus()
                 + ","+ hospital.getBusinessStatusCode()
-                + ","+ hospital.getPhone()
-                + ","+ hospital.getFullAddress()
-                + ","+ hospital.getRoadNameAddress()
-                + ","+ hospital.getHospitalName()
-                + ","+ hospital.getBusinessTypeName()
-                + ","+ hospital.getHealthcareProviderCount()
+                + ",'"+ hospital.getPhone()
+                + "','"+ hospital.getFullAddress()
+                + "','"+ hospital.getRoadNameAddress()
+                + "','"+ hospital.getHospitalName()
+                + "','"+ hospital.getBusinessTypeName()
+                + "',"+ hospital.getHealthcareProviderCount()
                 + ","+ hospital.getPatientRoomCount()
                 + ","+ hospital.getTotalNumberOfBeds()
                 + ","+ hospital.getTotalAreaSize()+ "),\n";
     }
 }
+
