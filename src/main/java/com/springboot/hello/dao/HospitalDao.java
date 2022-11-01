@@ -12,6 +12,11 @@ public class HospitalDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    public int getCount() {
+        String sql = "select count(id) from `likelion-db`.`hospital_db`;";
+        return this.jdbcTemplate.queryForObject(sql, Integer.class);
+    }
+
     public void add(Hospital hospital) {
         String sql = "INSERT INTO `likelion-db`.`hospital_db` VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         this.jdbcTemplate.update(sql, hospital.getId()
