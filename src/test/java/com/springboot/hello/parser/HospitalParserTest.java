@@ -1,5 +1,6 @@
 package com.springboot.hello.parser;
 
+import com.springboot.hello.dao.HospitalDao;
 import com.springboot.hello.domain.dto.Hospital;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,8 +22,20 @@ class HospitalParserTest {
     @Autowired
     ReadLineContext<Hospital> hospitalReadLineContext;
 
+    @Autowired
+    HospitalDao hospitalDao;
+
     @Test
-    void name() throws IOException {
+    @DisplayName("Hospital insert가 잘 되는지")
+    void insertHospital() {
+        HospitalParser hp = new HospitalParser();
+        Hospital hospital = hp.parse(line1);
+        hospitalDao.add(hospital);
+    }
+
+    @Test
+    @DisplayName("데이터 파싱 100000개가 되는지")
+    void cntData() throws IOException {
         // 서버 환경에서 build할때 input 에러가 발생할 수 있다.
         // 어ㄷ에서든지 실행 할 수 있게 '짜는 것이 목표
         String filename = "C:\\Users\\A\\springedu\\hello\\전국 병의원 정보.csv";
@@ -74,7 +87,6 @@ class HospitalParserTest {
         }
         strings.add(";");
         writer.write(strings, "hospital_data.sql");
-
     }
 
 }

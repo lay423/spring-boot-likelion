@@ -2,7 +2,9 @@ package com.springboot.hello.dao;
 
 import com.springboot.hello.domain.dto.Hospital;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 
+@Component
 public class HospitalDao {
     private final JdbcTemplate jdbcTemplate;
 
@@ -11,7 +13,7 @@ public class HospitalDao {
     }
 
     public void add(Hospital hospital) {
-        String sql = "INSERT INTO `likelion-db`.`hospital_db` (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO `likelion-db`.`hospital_db` VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         this.jdbcTemplate.update(sql, hospital.getId()
                 , hospital.getOpenServiceName()
                 , hospital.getOpenLocalGovernmentCode()

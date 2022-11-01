@@ -32,3 +32,5 @@ build/
 ### VS Code ###
 .vscode/
 .mvn/
+/hospital_data.sql
+/전국 병의원 정보.csv
