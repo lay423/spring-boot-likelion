@@ -1,5 +1,15 @@
 # spring-boot-likelion
 
+## 2022.11.01
+1. FileWriter 수정 | hospital_name column 길이 짧은 문제 발생
+
+## 2022.10.31
+1. Hospital Parser, 테스트 통과
+2. 파일 인코딩 변경
+3. ParserFactory 추가
+4. 10만개 test, FileWriter 추가
+5. SQL 구문에러 해결중
+
 ## 2022.10.28
 1. PutController, logging
 2. jdbc template add(), deleteAll() 추가
