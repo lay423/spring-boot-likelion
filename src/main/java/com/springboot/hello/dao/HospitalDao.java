@@ -49,6 +49,9 @@ public class HospitalDao {
     public void deleteAll() {
         this.jdbcTemplate.update("delete from `likelion-db`.`hospital_db`;");
     }
+    public int deleteById(int id) {
+        return this.jdbcTemplate.update("delete from `likelion-db`.`hospital_db` where id=?", id);
+    }
 
     public int getCount() {
         String sql = "select count(id) from `likelion-db`.`hospital_db`;";
