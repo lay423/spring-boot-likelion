@@ -2,6 +2,7 @@ package com.springboot.hello.parser;
 
 import com.springboot.hello.dao.HospitalDao;
 import com.springboot.hello.domain.dto.Hospital;
+import com.springboot.hello.service.HospitalService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,8 @@ class HospitalParserTest {
     @Autowired
     HospitalDao hospitalDao;
 
+    @Autowired
+    HospitalService hospitalService;
 
 
     @Test
@@ -65,12 +68,14 @@ class HospitalParserTest {
     void cntData() throws IOException {
         // 서버 환경에서 build할때 input 에러가 발생할 수 있다.
         // 어ㄷ에서든지 실행 할 수 있게 '짜는 것이 목표
+        hospitalDao.deleteAll();
         String filename = "C:\\Users\\A\\springedu\\hello\\전국 병의원 정보.csv";
-        List<Hospital> hospitalList = hospitalReadLineContext.readByLine(filename);
-        assertTrue(hospitalList.size() > 1000);
-        assertTrue(hospitalList.size() > 10000);
-        assertTrue(hospitalList.size() > 100000);
-        System.out.println("파싱된 데이터 개수 "+hospitalList.size());
+        int cnt = this.hospitalService.insertLargeVolumeHospitalData(filename);
+
+        assertTrue(cnt > 1000);
+        assertTrue(cnt > 10000);
+        assertTrue(cnt > 100000);
+        System.out.println("파싱된 데이터 개수 "+cnt);
     }
 
     @Test
@@ -98,7 +103,7 @@ class HospitalParserTest {
 
     }
     @Test
-    @DisplayName("파일 잘 쓰는지 Test")
+    @DisplayName("파일 잘 쓰는지 Test 만드는 부분은 현재 주석")
     public void FileWrite() throws IOException {
         ReadLineContext<Hospital> hospitalLineReader
                 = new ReadLineContext<>(new HospitalParser());
@@ -113,7 +118,7 @@ class HospitalParserTest {
             strings.add("("+writer.fromTOString(hospital));
         }
         strings.add(";");
-        writer.write(strings, "hospital_data.sql");
+        //writer.write(strings, "hospital_data.sql");
     }
 
 }
